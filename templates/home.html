@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <title>Simple Task Manager</title>
+    <style>
+        .newspaper {
+            -webkit-column-count: 2; /* Chrome, Safari, Opera */
+            -moz-column-count: 2; /* Firefox */
+            column-count: 2;
+        }
+        .head {
+            text-align: center;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="head">
+        <h1>Crawler implementation in Python</h1>
+    </div>
+    <div class="newspaper">
+        <form method="POST">
+            {{ cform.hidden_tag() }}
+            <fieldset>
+                <legend>Crawl RDF</legend>
+                {{ cform.domain.label }}<br>
+                {{ cform.domain }}<br>
+                {{ cform.limit.label }}<br>
+                {{ cform.limit }}<br>
+                {{ cform.crawl }}
+            </fieldset>
+        </form>
+        <form  method="POST">
+            {{ uform.hidden_tag() }}
+            <fieldset>
+                <legend>Crawl JSON-LD</legend>
+                {{ uform.domain.label }}<br>
+                {{ uform.domain }}<br>
+                {{ uform.limit.label }}<br>
+                {{ uform.limit }}<br>
+                {{ uform.crawl }}
+            </fieldset>
+        </form>
+    </div>
+  </body>
+</html>

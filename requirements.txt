@@ -1,0 +1,10 @@
+Flask
+Flask-WTF
+pymongo
+rdflib
+extruct
+bs4
+re
+ssl
+pytest
+pprint
