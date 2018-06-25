@@ -26,7 +26,7 @@ class Crawler:
   def startWorker(self, url, type, limit):
     self.limit = limit;
     self.task(url, type)
-    print(self.toBeVisitedUrls.keys())
+
     for i in range(0, self.limit):
       try:
         self.task(next(iter(self.toBeVisitedUrls.keys())), type)
@@ -34,7 +34,6 @@ class Crawler:
         pass
 
   def task(self, url, type):
-      print(url,type)
       html = self.getHTML(url)
       links = self.getLinks(url, type, html)
       if type == "rdf":
@@ -60,7 +59,6 @@ class Crawler:
       except KeyError:
         pass
 
-      # print(self.visitedUrls)
       soup = html
       domain = urlparse(url).netloc
       protocol = urlparse(url).scheme
@@ -69,7 +67,6 @@ class Crawler:
         for link in soup.findAll('a'):
           if type == "rdf" and not self.hasResourcePath(link.get('href')):
             continue
-          # TODO: should only have links that have proper domain
           url = link.get('href')
           if url.startswith('/') and not url.startswith('//'):
             url = protocol + '://' + domain + url
@@ -111,7 +108,7 @@ class Crawler:
   def parseJSONld(self, url, html, type):
     base_url = get_base_url(str(html), url)
     data = extruct.extract(str(html), base_url)
-    return data
+    return data.jsonld
 
   def getToBeVisitedUrls(self):
     return self.toBeVisitedUrls

@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  semantic_mongo3_4:
+      container_name: semantic_mongo_3_4_python
+      image: mongo:3.4
+      ports:
+        - "27017:27017"
+
+  semanticweb_python:
+      container_name: semanticWeb_pyton
+      build:
+        context: .
+        dockerfile: docker/Dockerfile
+      expose:
+        - "5858"
+      ports:
+        - "7777:8001"
+      environment:
+        - HTTPS_METHOD=noredirect
+        - SEMANTICWEB_MONGO_URL=mongodb://semantic_mongo_3_4_python:27017/semanticWeb
+        - SEMANTICWEB_TEST_MODE=true
