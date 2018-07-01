@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect
 from pymongo import MongoClient
+from time import gmtime, strftime
 from classes import *
 from crawler import Crawler
 from pprint import pprint
@@ -7,25 +8,27 @@ from pprint import pprint
 # config system
 app = Flask(__name__)
 app.config.update(dict(SECRET_KEY='yoursecretkey'))
-client = MongoClient('172.26.0.2:27017')
-db = client.TaskManager
 limit=10;
 crawler = Crawler()
 
 
 def crawlRDF(form):
     limit = form.limit.data
+    onlyDomain = form.onlyDomain.data
     type = 'rdf';
+    print('Started now: ', strftime("%Y-%m-%d %H:%M:%S", gmtime()))
     starting_page = form.domain.data
-    crawler.startWorker(starting_page, type, limit)
+    crawler.startWorker(starting_page, type, limit, onlyDomain)
     return redirect('/')
 
 
 def crawlJSONLD(form):
     limit = form.limit.data
+    onlyDomain = form.onlyDomain.data
     type = 'jsonld'
+    print('Started now: ', strftime("%Y-%m-%d %H:%M:%S", gmtime()))
     starting_page = form.domain.data
-    crawler.startWorker(starting_page, type, limit)
+    crawler.startWorker(starting_page, type, limit, onlyDomain)
     return redirect('/')
 
 
