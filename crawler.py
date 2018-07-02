@@ -83,6 +83,7 @@ class Crawler:
           if url.startswith('/') and not url.startswith('//'):
             url = protocol + '://' + domain + url
           if (domainCrawl and
+            not url.endswith(('.png', '.jpg', '.gif', '.js', '.pdf', '.css', '.ico')) and
             self.visitedUrls.get(url) == None and
             self.toBeVisitedUrls.get(url) == None):
             links.append(url)
